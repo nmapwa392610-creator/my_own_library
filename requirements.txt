@@ -28,6 +28,7 @@ pillow==13.0.0
 propcache==0.5.2
 PyJWT==2.15.1
 pyTelegramBotAPI==4.36.0
+python-dotenv==1.2.4
 pytz==2026.6
 PyYAML==6.0.3
 referencing==0.37.0
