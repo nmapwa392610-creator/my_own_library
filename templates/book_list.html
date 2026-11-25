@@ -8,6 +8,7 @@
 </head>
 <body>
 <a href="{% url 'home' %}">Домой Воултер</a>
+
 {% block content %}
 
 
@@ -23,9 +24,15 @@
         <div class="book-card">
             <h2>{{ page_somthing.title }}</h2>
             <p>Автор: {{ page_somthing.author }}</p>
+
             {% if page_somthing.cover %}
                 <img src="{{ page_somthing.cover.url }}" alt="{{ page_somthing.title }}" width="150">
             {% endif %}
+            <h2>
+                <a href="{% url 'book_reading_detail' page_somthing.pk %}">Читать</a>
+            </h2>
+
+
         </div>
     {% empty %}
         <p>книг пока нет.</p>

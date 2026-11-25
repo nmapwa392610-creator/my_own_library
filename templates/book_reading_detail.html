@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{{ bookReading.book.title }}</title>
+</head>
+<body>
+    <a href="{% url 'book_list' %}">← Назад к списку книг</a>
+
+    <div class="reader-container">
+        <h1>{{ bookReading.book.title }}</h1>
+        <p><strong>Автор:</strong> {{ bookReading.book.author }}</p>
+
+        {% if bookReading.book.cover %}
+            <img src="{{ bookReading.book.cover.url }}" alt="{{ bookReading.book.title }}" width="200">
+        {% endif %}
+
+        <hr>
+
+        <!-- Подставьте сюда точное имя поля с текстом из модели BookReading или Book -->
+        <div class="book-text">
+            {{ bookReading.text|linebreaks }}
+        </div>
+    </div>
+</body>
+</html>

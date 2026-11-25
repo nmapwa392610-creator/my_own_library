@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Book,Author,BookReading
 from .serializer import BookSerializer,AuthorSerializer,BookReadingSerializer
@@ -32,6 +32,11 @@ def book_list(request):
     return render(request,'book_list.html',{'book':page_obj})
 
 
+def book_reading_detail(request,pk):
+    reading = get_object_or_404(BookReading,pk=pk)
+    return render(request,'book_reading_detail.html',{'bookReading':reading})
+
+
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all().order_by('id')
     serializer_class = BookSerializer
@@ -48,3 +53,4 @@ class AuthorViewSet(viewsets.ModelViewSet):
 class BookReadingViewSet(viewsets.ModelViewSet):
     queryset = BookReading.objects.all()
     serializer_class = BookReadingSerializer
+
