@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>add_book</title>
+</head>
+<body>
+<a href="{% url 'home' %}">Домой Воултер</a>
+{% block content %}
+
+
+<form method="get" class="search-form">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="найти книгу по названию или автору">
+    <button type="submit">Поиск</button>
+    <a href="{% url 'book_list' %}">Сбросить</a>
+</form>
+
+
+<div class="books-grid">
+    {% for page_somthing in book %}
+        <div class="book-card">
+            <h2>{{ page_somthing.title }}</h2>
+            <p>Автор: {{ page_somthing.author }}</p>
+            {% if page_somthing.cover %}
+                <img src="{{ page_somthing.cover.url }}" alt="{{ page_somthing.title }}" width="150">
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>книг пока нет.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if book.has_previous %}
+    <a href="?page=1">&laquo; Первая</a>
+    <a href="?page={{ book.previous_page_number }}">Назад</a>
+    {% endif %}
+
+    <span>
+        страница {{ book.number }} из {{ book.paginator.num_pages }}
+    </span>
+
+    {% if book.has_next %}
+        <a href="?page={{ book.next_page_number }}">Вперед</a>
+        <a href="?page={{ book.paginator.num_pages }}">Последняя &raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+</body>
+</html>
